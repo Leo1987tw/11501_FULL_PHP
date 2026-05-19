@@ -157,6 +157,7 @@
   </style>
 </head>
 <body>
+  
   <?php
 
   include "db_connect.php";
@@ -252,7 +253,7 @@
 
         <div class="form-group">
           <label for="addr">地址</label>
-          <input type="text" id="addr" name="addr" >
+          <input type="text" id="addr" name="addr" required>
         </div>
 
         <!-- 父母 (文字輸入) -->

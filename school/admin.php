@@ -206,11 +206,11 @@
             $inc=(isset($_GET['inc']))?$_GET['inc']:'classrooms';
             $file="./include/" . $inc . ".php";
 
-            if(file_exists($file)){
-                include $file;
-            } else{
+            // if(file_exists($file)){
+            //     include $file;
+            // } else{
                 include "./include/classrooms.php";
-            }
+            // }
 
             ?>
         </div>

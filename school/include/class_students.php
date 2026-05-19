@@ -182,9 +182,15 @@
 
 <button class="btn add-btn"><a href="?inc=add_student&code=<?= $_GET['code'];?>">新增學生</a></button>
 
-<!-- <?php
+<?php
 
 include "db_connect.php";
+
+?>
+
+<!--
+基礎寫法
+<?php
 
 $sql = "SELECT * FROM `class_student` WHERE `class_code`='{$_GET['code']}'";
 $numbers = $pdo -> query($sql) -> fetchAll();
@@ -198,9 +204,9 @@ foreach($numbers as $number){
 
 ?> -->
 
-<!-- <?php
-
-include "db_connect.php";
+<!--
+進階寫法(解決n+1問題)
+<?php
 
 $sql = "SELECT `students`.`school_num`, `name`, `birthday` FROM `class_student`, `students` WHERE `class_student`.`class_code`='{$_GET['code']}' AND `class_student`.`school_num`=`students`.`school_num`";
 $students = $pdo -> query($sql) -> fetchAll();

@@ -162,7 +162,7 @@
   include "db_connect.php";
 
   $student = $pdo -> query("SELECT * FROM `students` WHERE `school_num`={$_GET['school_num']}") -> fetch();
-  $class = $pdo -> query("SELECT * FROM `class_student` WHERE `school_num`={$_GET['school_num']}") -> fetch();
+  $class_code = $pdo -> query("SELECT * FROM `class_student` WHERE `school_num`={$_GET['school_num']}") -> fetch();
 
   ?>
 
@@ -171,14 +171,14 @@
     <p class="subtitle">請填寫完整的學生學籍資料，確認無誤後點擊儲存。</p>
 
     <!-- 改為 POST 表單，action 請自行串接你的 PHP 接收頁面 -->
-    <form action="/api_add_student.php" method="POST">
+    <form action="./include/api_add_student.php" method="POST">
       <div class="form-grid">
         
         <!-- 學號 (文字輸入) -->
         <div class="form-group">
           <label for="school_num">學號</label>
           <?= $student['school_num']; ?>
-          <input type="hidden" id="school_num" name="school_num" placeholder="例如：<?= $default_number?>" value="<?= $student['school_num']; ?>" required>
+          <input type="hidden" id="school_num" name="school_num" placeholder="例如：<?= $student['school_num']; ?>" value="<?= $student['school_num']; ?>" required>
         </div>
 
         <!-- 姓名 (文字輸入) -->
@@ -202,9 +202,6 @@
 
         <div class="form-group">
             <label for="seat_num">座號</label>
-            <?php 
-            $defaut_number = $pdo -> query("SELECT max(`seat_num`) FROM `class_student` WHERE `class_code`=''") -> fetchColumn()+1;
-            ?>
             <input type="number" id="seat_num" name="seat_num" value="<?= $class_code['seat_num'];?>">
         </div>
 
@@ -253,7 +250,7 @@
         <!-- 父母 (文字輸入) -->
         <div class="form-group">
           <label for="parent">父母</label>
-          <input type="text" id="parent" name="parent" value="<?= $student['parents'];?>" required>
+          <input type="text" id="parents" name="parents" value="<?= $student['parents'];?>" required>
         </div>
 
         <!-- 電話 (文字輸入) -->
@@ -271,7 +268,7 @@
             $depts = $pdo -> query("SELECT * FROM `dept`") -> fetchAll();
             foreach($depts as $dept):
             ?>
-            <option value="<?= $dept['id']?>" <?= ($student['dept'] == $student['dept'])?'selected':'';?>><?= $dept['name']?></option>
+            <option value="<?= $dept['id']?>" <?= ($dept['id'] == $student['dept'])?'selected':'';?>><?= $dept['name']?></option>
             <?php endforeach;?>
           </select>
         </div>
