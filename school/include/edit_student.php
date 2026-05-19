@@ -161,6 +161,9 @@
 
   include "db_connect.php";
 
+  $student = $pdo -> query("SELECT * FROM `students` WHERE `school_num`={$_GET['school_num']}") -> fetch();
+  $class = $pdo -> query("SELECT * FROM `class_student` WHERE `school_num`={$_GET['school_num']}") -> fetch();
+
   ?>
 
   <div class="form-container">
@@ -168,34 +171,31 @@
     <p class="subtitle">請填寫完整的學生學籍資料，確認無誤後點擊儲存。</p>
 
     <!-- 改為 POST 表單，action 請自行串接你的 PHP 接收頁面 -->
-    <form action="./include/api_add_student.php" method="POST">
+    <form action="/api_add_student.php" method="POST">
       <div class="form-grid">
         
         <!-- 學號 (文字輸入) -->
         <div class="form-group">
           <label for="school_num">學號</label>
-          <?php
-          $default_number = $pdo -> query("SELECT max(`school_num`) FROM `students`") -> fetchColumn()+1;
-          ?>
-          <input type="text" id="school_num" name="school_num" placeholder="例如：<?= $default_number?>" value="<?= $default_number?>" required>
+          <?= $student['school_num']; ?>
+          <input type="hidden" id="school_num" name="school_num" placeholder="例如：<?= $default_number?>" value="<?= $student['school_num']; ?>" required>
         </div>
 
         <!-- 姓名 (文字輸入) -->
         <div class="form-group">
           <label for="name">姓名</label>
-          <input type="text" id="name" name="name" placeholder="請輸入姓名" required>
+          <input type="text" id="name" name="name" value="<?= $student['name'];?>" required>
         </div>
 
         <div class="form-group">
             <label for="class">所屬班級</label>
-            <select id="class" name="class_code" >
+            <select id="class" name="class" >
                 <option value="">請選擇分配的班級</option>
                 <?php 
                     $classes = $pdo -> query("SELECT * FROM `classes`") -> fetchAll();
-                    $is_code = (isset($_GET['code']))?$_GET['code']:'';
                     foreach($classes as $class):
                 ?>
-                <option value="<?= $class['code'];?>" <?= ($is_code == $class['code'])?'selected':'';?>><?= $class['name']; ?></option>
+                <option value="<?= $class['code'];?>" <?= ($class['code'] == $class_code['class_code'])?'selected':'';?>><?= $class['name']; ?></option>
                 <?php endforeach;?>
             </select>
         </div>
@@ -205,7 +205,7 @@
             <?php 
             $defaut_number = $pdo -> query("SELECT max(`seat_num`) FROM `class_student` WHERE `class_code`=''") -> fetchColumn()+1;
             ?>
-            <input type="number" id="seat_num" name="seat_num" value="<?= $defaut_number; ?>">
+            <input type="number" id="seat_num" name="seat_num" value="<?= $class_code['seat_num'];?>">
         </div>
 
         <script>
@@ -241,30 +241,25 @@
         <!-- 生日 (日期選取器) -->
         <div class="form-group">
           <label for="birthday">生日</label>
-          <input type="date" id="birthday" name="birthday" required>
+          <input type="date" id="birthday" name="birthday" value="<?= $student['birthday'];?> required>
         </div>
 
         <!-- 身分證字號 (文字輸入) -->
         <div class="form-group">
           <label for="uni_id">身分證字號</label>
-          <input type="text" id="uni_id" name="uni_id" placeholder="例如：A123456789" required>
-        </div>
-
-        <div class="form-group">
-          <label for="addr">地址</label>
-          <input type="text" id="addr" name="addr" >
+          <input type="text" id="id_card" name="id_card" value="<?= $student['uni_id'];?>" placeholder="例如：A123456789" required>
         </div>
 
         <!-- 父母 (文字輸入) -->
         <div class="form-group">
-          <label for="parents">父母</label>
-          <input type="text" id="parents" name="parents" required>
+          <label for="parent">父母</label>
+          <input type="text" id="parent" name="parent" value="<?= $student['parents'];?>" required>
         </div>
 
         <!-- 電話 (文字輸入) -->
         <div class="form-group">
           <label for="tel">電話</label>
-          <input type="text" id="tel" name="tel" required>
+          <input type="text" id="tel" name="tel" value="<?= $student['tel'];?>" required>
         </div>
 
         <!-- 科別 (下拉選單) -->
@@ -276,35 +271,35 @@
             $depts = $pdo -> query("SELECT * FROM `dept`") -> fetchAll();
             foreach($depts as $dept):
             ?>
-            <option value="<?= $dept['id']?>"><?= $dept['name']?></option>
+            <option value="<?= $dept['id']?>" <?= ($student['dept'] == $student['dept'])?'selected':'';?>><?= $dept['name']?></option>
             <?php endforeach;?>
           </select>
         </div>
 
         <!-- 畢業國中 (下拉選單) -->
         <div class="form-group">
-          <label for="graduate_at">畢業國中</label>
-          <select id="graduate_at" name="graduate_at" required>
+          <label for="graduate_school">畢業國中</label>
+          <select id="graduate_school" name="graduate_school" required>
             <option value="" disabled selected>請選擇畢業國中</option>
             <?php
             $schools = $pdo -> query("SELECT * FROM `graduate_school`") -> fetchAll();
             foreach($schools as $school):
             ?>
-            <option value="<?= $school['id']?>"><?= $school['name']?></option>
+            <option value="<?= $school['id']?>" <?= ($school['id'] == $student['graduate_at'])?'selected':'';?>><?= $school['name']?></option>
             <?php endforeach;?>
           </select>
         </div>
 
         <!-- 畢業狀態 (下拉選單) -->
         <div class="form-group">
-          <label for="status_code">畢業狀態</label>
-          <select id="status_code" name="status_code" required>
+          <label for="graduate_status">畢業狀態</label>
+          <select id="graduate_status" name="graduate_status" required>
             <option value="" disabled selected>請選擇狀態</option>
             <?php
             $status = $pdo -> query("SELECT * FROM `status`") -> fetchAll();
             foreach($status as $s):
             ?>
-            <option value="<?= $s['id']?>"><?= $s['status']?></option>
+            <option value="<?= $s['id']?>" <?= ($s['id'] == $student['status_code'])?'selected':'';?>><?= $s['status']?></option>
             <?php endforeach;?>
           </select>
         </div>

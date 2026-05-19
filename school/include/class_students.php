@@ -180,9 +180,7 @@
 
 <h2><?= $_GET['code'];?>班級學生列表</h2>
 
-<button class="btn add-btn">新增學生</button>
-
-<a href="?inc=add_student">add student</a>
+<button class="btn add-btn"><a href="?inc=add_student&code=<?= $_GET['code'];?>">新增學生</a></button>
 
 <!-- <?php
 
@@ -272,8 +270,8 @@ echo "</table>";
         </div>
       </div>
       <div class="card-footer">
-        <button class="btn btn-primary">詳細資料</button>
-        <button class="btn btn-secondary">發送訊息</button>
+        <button class="btn btn-primary"><a href="?inc=edit_student&school_num=<?= $student['school_num']?>">編輯</a></button>
+        <button class="btn btn-secondary"><a href="?inc=delete_student&school_num=<?= $student['school_num']?>">刪除</a></button>
       </div>
     </div>
     <?php endforeach?>
