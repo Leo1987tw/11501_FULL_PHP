@@ -166,7 +166,7 @@
         align-items: center;
         margin: 20px;
         padding: 30px;
-        width: 150px;;
+        width: 150px;
         height: 50px;
         font-size: 1.2rem;
         background-color: #4f46e5;
@@ -244,42 +244,39 @@ echo "</table>";
 
 <div class="card-container">
 
-    <?php
+  <?php
+  include "db_connect.php";
+  $sql = "SELECT `students`.`school_num`, `students`.`name`, `birthday`, `addr`, `dept`.`name` AS `dept_name`, `graduate_school`.`name` AS `graduate_school` FROM `class_student`, `students`, `dept`, `graduate_school` WHERE `class_student`.`class_code`='{$_GET['code']}' AND `class_student`.`school_num`=`students`.`school_num` AND `students`.`dept`=`dept`.`id` AND `students`.`graduate_at`=`graduate_school`.`id`"; $students = $pdo -> query($sql) -> fetchAll();
+  ?>
 
-    include "db_connect.php";
-
-    $sql = "SELECT `students`.`school_num`, `students`.`name`, `birthday`, `addr`, `dept`.`name` AS `dept_name`, `graduate_school`.`name` AS `graduate_school` FROM `class_student`, `students`, `dept`, `graduate_school` WHERE `class_student`.`class_code`='{$_GET['code']}' AND `class_student`.`school_num`=`students`.`school_num` AND `students`.`dept`=`dept`.`id` AND `students`.`graduate_at`=`graduate_school`.`id`"; $students = $pdo -> query($sql) -> fetchAll();
-
-    ?>
-
-    <?php foreach($students as $student):?>
-    <div class="student-card">
-      <div class="card-header">
-        <div class="avatar"><?= mb_substr($student['name'], 0, 1)?></div>
-        <div class="student-meta">
-          <div class="name"><?= $student['name']?></div>
-          <div class="id"><?= $student['school_num']?></div>
-        </div>
-      </div>
-      <div class="card-body">
-        <div class="info-row">
-          <span class="label">居住地</span>
-          <span class="value"><?= mb_substr($student['addr'], 0, 3)?><n></span>
-        </div>
-        <div class="info-row">
-          <span class="label">系所</span>
-          <span class="value"><?= $student['dept_name']?></span>
-        </div>
-        <div class="info-row">
-          <span class="label">畢業學校</span>
-          <span class="value"><?= $student['graduate_school']?></span>
-        </div>
-      </div>
-      <div class="card-footer">
-        <button class="btn btn-primary"><a href="?inc=edit_student&school_num=<?= $student['school_num']?>">編輯</a></button>
-        <button class="btn btn-secondary"><a href="?inc=delete_student&school_num=<?= $student['school_num']?>">刪除</a></button>
+  <?php foreach($students as $student):?>
+  <div class="student-card">
+    <div class="card-header">
+      <div class="avatar"><?= mb_substr($student['name'], 0, 1)?></div>
+      <div class="student-meta">
+        <div class="name"><?= $student['name']?></div>
+        <div class="id"><?= $student['school_num']?></div>
       </div>
     </div>
-    <?php endforeach?>
+    <div class="card-body">
+      <div class="info-row">
+        <span class="label">居住地</span>
+        <span class="value"><?= mb_substr($student['addr'], 0, 3)?></span>
+      </div>
+      <div class="info-row">
+        <span class="label">系所</span>
+        <span class="value"><?= $student['dept_name']?></span>
+      </div>
+      <div class="info-row">
+        <span class="label">畢業學校</span>
+        <span class="value"><?= $student['graduate_school']?></span>
+      </div>
+    </div>
+    <div class="card-footer">
+      <button class="btn btn-primary"><a href="?inc=edit_student&school_num=<?= $student['school_num']?>">編輯</a></button>
+      <button class="btn btn-secondary"><a href="?inc=delete_student&school_num=<?= $student['school_num']?>">刪除</a></button>
+    </div>
+  </div>
+  <?php endforeach?>
 
 </div>

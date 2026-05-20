@@ -207,9 +207,9 @@
             $file="./include/" . $inc . ".php";
 
             // if(file_exists($file)){
-            //     include $file;
+                include $file;
             // } else{
-                include "./include/classrooms.php";
+            //     include "./include/classrooms.php";
             // }
 
             ?>

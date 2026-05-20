@@ -171,7 +171,7 @@
     <p class="subtitle">請填寫完整的學生學籍資料，確認無誤後點擊儲存。</p>
 
     <!-- 改為 POST 表單，action 請自行串接你的 PHP 接收頁面 -->
-    <form action="./include/api_add_student.php" method="POST">
+    <form action="./include/api_edit_student.php" method="POST">
       <div class="form-grid">
         
         <!-- 學號 (文字輸入) -->
@@ -238,13 +238,18 @@
         <!-- 生日 (日期選取器) -->
         <div class="form-group">
           <label for="birthday">生日</label>
-          <input type="date" id="birthday" name="birthday" value="<?= $student['birthday'];?> required>
+          <input type="date" id="birthday" name="birthday" value="<?= $student['birthday'];?>" required>
         </div>
 
         <!-- 身分證字號 (文字輸入) -->
         <div class="form-group">
           <label for="uni_id">身分證字號</label>
-          <input type="text" id="id_card" name="id_card" value="<?= $student['uni_id'];?>" placeholder="例如：A123456789" required>
+          <input type="text" id="uni_id" name="uni_id" value="<?= $student['uni_id'];?>" placeholder="例如：A123456789" required>
+        </div>
+
+        <div class="form-group">
+          <label for="addr">地址</label>
+          <input type="text" id="addr" name="addr" value="<?= $student['addr'];?>" required>
         </div>
 
         <!-- 父母 (文字輸入) -->
