@@ -28,6 +28,6 @@ $sql_class = "UPDATE
 $pdo -> exec($sql_student);
 $pdo -> exec($sql_class);
 
-header("location:../admin.php?inc=class_students&code={$_POST['class']}");
+// header("location:../admin.php?inc=class_students&code={$_POST['class']}");
 
 ?>

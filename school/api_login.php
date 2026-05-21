@@ -1,6 +1,6 @@
 <?php
 
-$dsn = "mysql: host=localhost; charset=utf8; dbname=form";
+$dsn = "mysql: host=localhost; charset=utf8; dbname=test";
 $pdo = new PDO($dsn, 'root', '');
 
 echo "<pre>";
