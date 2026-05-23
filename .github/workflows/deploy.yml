@@ -1,0 +1,22 @@
+name: 🚀 自動外送網頁到免費主機
+
+on:
+  push:
+    branches:
+      - main  # 如果您在 Git 上的主要分支叫 master，請把 main 改成 master
+
+jobs:
+  web-deploy:
+    name: 🎉 同步檔案
+    runs-on: ubuntu-latest
+    steps:
+    - name: 🚚 步驟1：取得最新程式碼
+      uses: actions/checkout@v4
+
+    - name: 📂 步驟2：透過 FTP 同步到 InfinityFree
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      with:
+        server: ${{ secrets.FTP_SERVER }}
+        username: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
+        server-dir: ./htdocs/  # 免費主機規定網頁一定要放在 htdocs 資料夾內
