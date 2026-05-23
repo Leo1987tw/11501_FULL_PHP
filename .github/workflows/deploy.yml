@@ -3,7 +3,7 @@ name: 🚀 自動外送網頁到免費主機
 on:
   push:
     branches:
-      - main  # 如果您在 Git 上的主要分支叫 master，請把 main 改成 master
+      - main
 
 jobs:
   web-deploy:
@@ -19,4 +19,4 @@ jobs:
         server: ${{ secrets.FTP_SERVER }}
         username: ${{ secrets.FTP_USERNAME }}
         password: ${{ secrets.FTP_PASSWORD }}
-        server-dir: ./htdocs/  # 免費主機規定網頁一定要放在 htdocs 資料夾內
+        server-dir: ./htdocs/11501_FULL_PHP
