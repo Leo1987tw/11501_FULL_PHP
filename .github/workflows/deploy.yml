@@ -17,7 +17,7 @@ jobs:
       run: |
         mkdir -p deploy_temp/htdocs/11501_FULL_PHP
         
-        rsync -av --exclude='deploy_temp' --exclude='.git' --exclude='.github' ./ deploy_temp/htdocs/11501_FULL_PHP/
+        rsync -av --exclude='deploy_temp' --exclude='.git' --exclude='.github' ./ deploy_temp/htdocs/11501_FULL_PHP
 
     - name: 📂 步驟3：透過 FTP 安全同步到主機
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
