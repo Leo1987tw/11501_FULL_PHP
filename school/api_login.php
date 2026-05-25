@@ -1,5 +1,7 @@
 <?php
 
+include_once "./include/db_connect.php";
+
 $dsn = "mysql: host=localhost; charset=utf8; dbname=test";
 $pdo = new PDO($dsn, 'root', '');
 
@@ -15,6 +17,8 @@ print_r($result);
 echo "<br>";
 if($result == 1){
     echo "success";
+    $_SESSION['login']=1;
+    $_SESSION['account']="Leo";
     header("location: admin.php");
 } else{
     echo "false";

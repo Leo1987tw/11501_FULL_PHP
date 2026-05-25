@@ -1,3 +1,9 @@
+<?php
+
+include "./include/db_connect.php";
+
+?>
+
 <!DOCTYPE html>
 <html lang="zh-tw">
 <head>

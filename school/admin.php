@@ -1,3 +1,9 @@
+<?php
+
+include_once "./include/db_connect.php";
+
+?>
+
 <!DOCTYPE html>
 <html lang="zh-tw">
 <head>
@@ -186,8 +192,9 @@
 
     <!-- 頂部導覽列 -->
     <nav class="navbar">
-        <a href="./index.html" class="nav-logo">綠意生態網</a>
+        <a href="./index.php" class="nav-logo">綠意生態網</a>
         <div class="nav-links">
+            <a href="?inc=news" class="nav-item">最新消息</a>
             <a href="?inc=classrooms" class="nav-item">班級</a>
             <a href="?inc=students" class="nav-item">學生</a>
             <a href="?inc=subjects" class="nav-item">科別</a>

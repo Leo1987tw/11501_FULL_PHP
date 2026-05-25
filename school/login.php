@@ -185,7 +185,7 @@
 
     <!-- 頂部導覽列 -->
     <nav class="navbar">
-        <a href="./index.html" class="nav-logo">綠意生態網</a>
+        <a href="./index.php" class="nav-logo">綠意生態網</a>
         <div class="nav-links">
             <a href="#" class="nav-item">首頁</a>
             <a href="#" class="nav-item">最新消息</a>

@@ -2,8 +2,6 @@
 
 <?php
 
-include "db_connect.php";
-
 $classrooms = $pdo -> query("SELECT * FROM `classes`") -> fetchAll();
 
 echo "<div class='cards-container'>";

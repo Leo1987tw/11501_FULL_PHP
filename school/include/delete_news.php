@@ -1,7 +1,6 @@
 <?php
 
-$sql = "SELECT `class_code` FROM `class_student` WHERE `school_num`={$_GET['school_num']}";
-$class_code = $pdo -> query($sql) -> fetch();
+$news = $pdo -> query("select * from `news` where `id`='{$_GET['id']}'") -> fetch();
 
 ?>
 
@@ -123,24 +122,20 @@ $class_code = $pdo -> query($sql) -> fetch();
 <div class="warning-card-wrapper">
     <div class="warning-icon-box">⚠️</div>
     
-    <h2 class="warning-title">確認刪除學生？</h2>
+    <h2 class="warning-title">確認刪除這則消息？</h2>
     
     <p class="warning-desc">
-        您確定要刪除該位學生的所有資料嗎？<br>
+        您確定要刪除這則消息的所有內容嗎？<br>
         此動作將會<strong>無法復原</strong>。
     </p>
     
     <div class="warning-btn-group">
         <!-- 1. 取消超連結 -->
-        <a href="?inc=class_students&code=<?= $class_code['class_code']?>" class="btn-warning-action btn-warning-cancel">
+        <a href="?inc=news?>" class="btn-warning-action btn-warning-cancel">
             取消
         </a>
         
-        <!-- 2. 確定刪除超連結（動態帶入學號） -->
-        <?php 
-            $school_num = isset($_GET['school_num']) ? $_GET['school_num'] : ''; 
-        ?>
-        <a href="./include/api_delete_student.php?school_num=<?= $school_num ?>&code=<?= $class_code['class_code']?>" class="btn-warning-action btn-warning-danger">
+        <a href="./include/api_delete_news.php?id=<?= $_GET['id'] ?>?>" class="btn-warning-action btn-warning-danger">
             確定刪除
         </a>
     </div>

@@ -202,14 +202,21 @@
     }
 </style>
 
-<h2>學生列表</h2>
+<?php
+
+$dept_name = $pdo -> query("SELECT `name` FROM `dept` WHERE `id`='{$_GET['dept']}'") -> fetchColumn();
+
+?>
+
+<h2><?= $dept_name?>科別學生列表</h2>
 
 <!-- <?= $_GET['code'];?> -->
 <button class="btn add-btn"><a href="?inc=add_student">新增學生</a></button>
 
 <?php
 
-$total_students = $pdo -> query("SELECT COUNT(*) FROM `students`") -> fetchColumn();
+$sql_num = "SELECT COUNT(*) FROM `class_student`, `students`, `dept`, `graduate_school`, `classes` WHERE `class_student`.`school_num`=`students`.`school_num` AND `dept`.`id`=`students`.`dept` AND `graduate_school`.`id`=`students`.`graduate_at` AND `classes`.`code`=`class_student`.`class_code` AND `students`.`dept`= '{$_GET['dept']}'";
+$total_students = $pdo -> query($sql_num) -> fetchColumn();
 $divison = 12;
 $pages = ceil($total_students / $divison);
 $now_page = $_GET['page']??1;
@@ -393,12 +400,12 @@ echo "</table>";
 <div class="card-container">
   
   <?php
-  
-  $sql = "SELECT `students`.`school_num`, `students`.`name`, `birthday`, `addr`, `dept`.`name` AS `dept_name`, `graduate_school`.`name` AS `graduate_school` FROM `class_student`, `students`, `dept`, `graduate_school` WHERE `class_student`.`school_num`=`students`.`school_num` AND `students`.`dept`=`dept`.`id` AND `students`.`graduate_at`=`graduate_school`.`id` LIMIT $start, $divison";
-  $students = $pdo -> query($sql) -> fetchAll();
-  
-  ?>
 
+  $sql = "SELECT `students`.`school_num`, `students`.`name`, `classes`.`name` AS 'class_name', `dept`.`name`AS 'dept_name', `addr`, `uni_id`, `graduate_school`.`name` AS 'graduate_school', `birthday` FROM `class_student`, `students`, `dept`, `graduate_school`, `classes` WHERE `class_student`.`school_num`=`students`.`school_num` AND `dept`.`id`=`students`.`dept` AND `graduate_school`.`id`=`students`.`graduate_at` AND `classes`.`code`=`class_student`.`class_code` AND `students`.`dept`= '{$_GET['dept']}'";
+  $students = $pdo -> query($sql) -> fetchAll();
+
+  ?>
+  
   <?php foreach($students as $student):?>
   <div class="student-card">
     <div class="card-header">
@@ -466,7 +473,7 @@ if($now_page < 3){
     echo "<a href='?inc=students&page=$i' class='$now_class'>$i</a>";
   }
 } else{
-  for($i = $now_page -2; $i <= $now_page + 2; $i++){
+  for($i = $now_page - 2; $i <= $now_page + 2; $i++){
     if($now_page == $i){
       $now_class="now_page";
     } else{

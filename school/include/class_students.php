@@ -184,7 +184,7 @@
 
 <?php
 
-include "db_connect.php";
+include_once "db_connect.php";
 
 ?>
 
@@ -245,7 +245,6 @@ echo "</table>";
 <div class="card-container">
 
   <?php
-  include "db_connect.php";
   $sql = "SELECT `students`.`school_num`, `students`.`name`, `birthday`, `addr`, `dept`.`name` AS `dept_name`, `graduate_school`.`name` AS `graduate_school` FROM `class_student`, `students`, `dept`, `graduate_school` WHERE `class_student`.`class_code`='{$_GET['code']}' AND `class_student`.`school_num`=`students`.`school_num` AND `students`.`dept`=`dept`.`id` AND `students`.`graduate_at`=`graduate_school`.`id`"; $students = $pdo -> query($sql) -> fetchAll();
   ?>
 

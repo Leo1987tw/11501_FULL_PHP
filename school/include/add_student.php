@@ -158,12 +158,6 @@
 </head>
 <body>
   
-  <?php
-
-  include "db_connect.php";
-
-  ?>
-
   <div class="form-container">
     <h2>新增學生資料</h2>
     <p class="subtitle">請填寫完整的學生學籍資料，確認無誤後點擊儲存。</p>

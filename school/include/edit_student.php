@@ -159,8 +159,6 @@
 <body>
   <?php
 
-  include "db_connect.php";
-
   $student = $pdo -> query("SELECT * FROM `students` WHERE `school_num`={$_GET['school_num']}") -> fetch();
   $class_code = $pdo -> query("SELECT * FROM `class_student` WHERE `school_num`={$_GET['school_num']}") -> fetch();
 
