@@ -9,7 +9,7 @@ include_once "./include/db_connect.php";
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>網站首頁</title>
+    <title>板橋國小</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -192,13 +192,13 @@ include_once "./include/db_connect.php";
 
     <!-- 頂部導覽列 -->
     <nav class="navbar">
-        <a href="./index.php" class="nav-logo">綠意生態網</a>
+        <a href="./index.php" class="nav-logo">板橋國小</a>
         <div class="nav-links">
             <a href="?inc=news" class="nav-item">最新消息</a>
             <a href="?inc=classrooms" class="nav-item">班級</a>
             <a href="?inc=students" class="nav-item">學生</a>
             <a href="?inc=subjects" class="nav-item">科別</a>
-            <a href="./logout.php" class="btn-nav btn-login">登出</a>
+            <a href="?inc=logout" class="btn-nav btn-login">登出</a>
             <!-- <a href="./register.php" class="btn-nav btn-register">註冊</a> -->
         </div>
     </nav>
@@ -206,17 +206,17 @@ include_once "./include/db_connect.php";
     <!-- 主要內容區 -->
     <main class="main-content">
         <div class="container">
-            <h1>歡迎來到我們的網站</h1>
+            <h1>歡迎來到板橋國小</h1>
 
             <?php
 
-            $inc=(isset($_GET['inc']))?$_GET['inc']:'classrooms';
+            $inc=(isset($_GET['inc']))?$_GET['inc']:'news';
             $file="./include/" . $inc . ".php";
 
             // if(file_exists($file)){
                 include $file;
             // } else{
-            //     include "./include/classrooms.php";
+            //     include "./include/news.php";
             // }
 
             ?>

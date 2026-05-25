@@ -9,7 +9,7 @@ include "./include/db_connect.php";
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>網站首頁</title>
+    <title>板橋國小</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -205,7 +205,7 @@ include "./include/db_connect.php";
     <!-- 主要內容區 -->
     <main class="main-content">
         <div class="container">
-            <h1>歡迎來到我們的網站</h1>
+            <h1>歡迎來到板橋國小</h1>
             <p class="subtitle">探索清新、自然且高效的數位體驗。我們致力於提供最優質的服務，讓您的生活更輕鬆、更美好。</p>
             
             <!-- 行動呼籲按鈕組 -->
