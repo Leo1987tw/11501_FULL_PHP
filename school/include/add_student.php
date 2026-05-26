@@ -197,8 +197,11 @@
 
         <div class="form-group">
             <label for="seat_num">座號</label>
-            <?php 
-            $defaut_number = $pdo -> query("SELECT max(`seat_num`) FROM `class_student` WHERE `class_code` = $is_code") -> fetchColumn()+1;
+            <?php
+            $default_number = '';
+            if(!empty($is_code)){
+              $defaut_number = $pdo -> query("SELECT max(`seat_num`) FROM `class_student` WHERE `class_code` = $is_code") -> fetchColumn()+1;
+            }
             ?>
             <input type="number" id="seat_num" name="seat_num" value="<?= $defaut_number; ?>">
         </div>
