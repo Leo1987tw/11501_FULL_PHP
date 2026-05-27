@@ -1,10 +1,3 @@
-<?php
-
-$sql = "SELECT `class_code` FROM `class_student` WHERE `school_num`={$_GET['school_num']}";
-$class_code = $pdo -> query($sql) -> fetch();
-
-?>
-
 <!-- delete_student.php -->
 <style>
     /* 警告專屬容器：在父層白框內完美居中 */

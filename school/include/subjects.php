@@ -20,7 +20,7 @@
 <?php
 
 //計算各科別，有多少學生
-$sql="SELECT `dept`.`name` AS '科別', `dept`.`id` AS 'dept_id', COUNT(`students`.`id`) AS '人數' FROM `students` RIGHT JOIN `dept` ON `dept`.`id`= `students`.`dept` Group BY `dept`.`id`;";
+$sql="SELECT `dept`.`name` AS '科別', `dept`.`code` AS 'dept_code', COUNT(`students`.`id`) AS '人數' FROM `students` RIGHT JOIN `dept` ON `dept`.`id`= `students`.`dept` Group BY `dept`.`id`;";
 $subjects = $pdo -> query($sql) -> fetchAll(PDO::FETCH_ASSOC);
 
 echo "<table id='subjects-table'>";
@@ -28,7 +28,7 @@ echo "<tr><th>科別</th><th>人數</th></tr>";
 
 foreach($subjects as $sub){
     echo "<tr><td>";
-    echo "<a href='?inc=subject_students&dept={$sub['dept_id']}'>";
+    echo "<a href='?inc=subject_students&dept={$sub['dept_code']}'>";
     echo $sub['科別'];
     echo "</a>";
     echo "</td><td>";

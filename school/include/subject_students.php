@@ -208,10 +208,10 @@ $dept_name = $pdo -> query("SELECT `name` FROM `dept` WHERE `id`='{$_GET['dept']
 
 ?>
 
-<h2><?= $dept_name?>科別學生列表</h2>
+<h2><?= $dept_name;?>科別學生列表</h2>
 
-<!-- <?= $_GET['code'];?> -->
-<button class="btn add-btn"><a href="?inc=add_student">新增學生</a></button>
+<?= $dept = $_GET['dept'];?>
+<button class="btn add-btn"><a href="?inc=add_student&dept=<?= $dept;?>">新增學生</a></button>
 
 <?php
 
@@ -401,7 +401,7 @@ echo "</table>";
   
   <?php
 
-  $sql = "SELECT `students`.`school_num`, `students`.`name`, `classes`.`name` AS 'class_name', `dept`.`name`AS 'dept_name', `addr`, `uni_id`, `graduate_school`.`name` AS 'graduate_school', `birthday` FROM `class_student`, `students`, `dept`, `graduate_school`, `classes` WHERE `class_student`.`school_num`=`students`.`school_num` AND `dept`.`id`=`students`.`dept` AND `graduate_school`.`id`=`students`.`graduate_at` AND `classes`.`code`=`class_student`.`class_code` AND `students`.`dept`= '{$_GET['dept']}'";
+  $sql = "SELECT `students`.`school_num`, `students`.`name`, `classes`.`name` AS 'class_name', `dept`.`name`AS 'dept_name', `addr`, `uni_id`, `graduate_school`.`name` AS 'graduate_school', `birthday` FROM `class_student`, `students`, `dept`, `graduate_school`, `classes` WHERE `class_student`.`school_num`=`students`.`school_num` AND `dept`.`id`=`students`.`dept` AND `graduate_school`.`id`=`students`.`graduate_at` AND `classes`.`code`=`class_student`.`class_code` AND `dept`.`code`= '{$_GET['dept']}'";
   $students = $pdo -> query($sql) -> fetchAll();
 
   ?>

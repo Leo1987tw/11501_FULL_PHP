@@ -172,7 +172,7 @@
           <?php
           $default_number = $pdo -> query("SELECT max(`school_num`) FROM `students`") -> fetchColumn()+1;
           ?>
-          <input type="text" id="school_num" name="school_num" placeholder="例如：<?= $default_number?>" value="<?= $default_number?>" required>
+          <input type="text" id="school_num" name="school_num" placeholder="例如：<?= $default_number?>" value="<?= $default_number?>" readonly required>
         </div>
 
         <!-- 姓名 (文字輸入) -->
@@ -183,7 +183,7 @@
 
         <div class="form-group">
             <label for="class">所屬班級</label>
-            <select id="class" name="class_code" >
+            <select id="class" name="class_code">
                 <option value="">請選擇分配的班級</option>
                 <?php 
                     $classes = $pdo -> query("SELECT * FROM `classes`") -> fetchAll();
@@ -200,10 +200,10 @@
             <?php
             $default_number = '';
             if(!empty($is_code)){
-              $defaut_number = $pdo -> query("SELECT max(`seat_num`) FROM `class_student` WHERE `class_code` = $is_code") -> fetchColumn()+1;
+              $default_number = $pdo -> query("SELECT max(`seat_num`) FROM `class_student` WHERE `class_code` = $is_code") -> fetchColumn()+1;
             }
             ?>
-            <input type="number" id="seat_num" name="seat_num" value="<?= $defaut_number; ?>">
+            <input type="number" id="seat_num" name="seat_num" value="<?= $default_number; ?>" readonly required>
         </div>
 
         <script>
@@ -271,10 +271,11 @@
           <select id="dept" name="dept" required>
             <option value="" disabled selected>請選擇科別</option>
             <?php
+            $is_code = (isset($_GET['dept']))?$_GET['dept']:'';
             $depts = $pdo -> query("SELECT * FROM `dept`") -> fetchAll();
             foreach($depts as $dept):
             ?>
-            <option value="<?= $dept['id']?>"><?= $dept['name']?></option>
+            <option value="<?= $dept['id'];?>" <?= ($dept['code'] == $is_code)?'selected':'';?>><?= $dept['name'];?></option>
             <?php endforeach;?>
           </select>
         </div>
